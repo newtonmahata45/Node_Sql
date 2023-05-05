@@ -7,3 +7,4 @@ DB_USER = root
 DB_PW = ''
 DB_NAME = test
 ```
+
