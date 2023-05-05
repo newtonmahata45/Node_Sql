@@ -14,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use("/", require("./src/routes/home.routes"));
 
+
 // Server
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
