@@ -1,5 +1,5 @@
-module.exports = function (sequelize, DataTypes) {
-  const postModel = sequelize.define("post", {
+module.exports = (sequelize, DataTypes) => {
+  const todoModel = sequelize.define("todo", {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -7,18 +7,18 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false,
     },
     title: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    content: {
-      type: DataTypes.TEXT,
+    description: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
     author: {
       type: DataTypes.STRING,
-      foreignKey: true,
       allowNull: false,
     },
   });
-  return postModel;
+
+  return todoModel;
 };

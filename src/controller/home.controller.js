@@ -1,77 +1,60 @@
 const homeService = require("../service/home.service");
 
-const createUser = async (req, res) => {
+const createTask = async (req, res) => {
   try {
-    const isUserExit = await homeService.getUserByEmail(req.body.email);
-
-    if (!!isUserExit) {
-      return res.json({ message: "User already exist.change your email" });
-    }
-    const result = await homeService.createUser(req.body);
-    if (result.admin.options.isNewRecord === true) {
-      return res.json({ message: "User created successfully" });
+    const result = await homeService.createTask(req.body);
+    
+    if (result.todo.options.isNewRecord === true) {
+      return res.json({ message: "Task added" });
+    
     } else {
-      return res.json({ message: "User not created" });
+    
+      return res.json({ message: "Not found" });
     }
   } catch (error) {
     return res.json({ error: error.message });
   }
 };
 
-const getUsers = async (req, res) => {
+const getTask = async (req, res) => {
   try {
-    const result = await homeService.getUsers();
+    const result = await homeService.getTask();
     res.json({ users: result });
   } catch (error) {
     res.json({ error: error.message });
   }
 };
 
-const deleteUser = async (req, res) => {
+
+
+const updateTask = async (req, res) => {
+  try {
+    const result = await homeService.updateTask(req.params.id, req.body);
+    if (result.length === 1) {
+      res.json({ message: "Task updated successfully" });
+    } else {
+      res.json({ message: "Task not found" });
+    }
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+};
+const deleteTask = async (req, res) => {
   try {
     const result = await homeService.deleteUser(req.params.id);
     if (result === 1) {
-      res.json({ message: "User deleted successfully" });
+      res.json({ message: "Task deleted successfully" });
     } else {
-      res.json({ message: "User not found" });
+      res.json({ message: "Task not found" });
     }
   } catch (error) {
-    res.json({ error: error.message });
-  }
-};
-
-const updateUser = async (req, res) => {
-  try {
-    const result = await homeService.updateUser(req.params.id, req.body);
-    if (result.length === 1) {
-      res.json({ message: "User updated successfully" });
-    } else {
-      res.json({ message: "User not found" });
-    }
-  } catch (error) {
-    res.json({ error: error.message });
-  }
-};
-
-const updateUsers = async (req, res) => {
-  try {
-    const result = await homeService.updateUsers(req.params.name, req.body);
-    console.log(result);
-    if (result.length === 1) {
-      res.json({ message: "User updated successfully" });
-    } else {
-      res.json({ message: "User not found" });
-    }
-  } catch (error) {
-    console.log(error);
     res.json({ error: error.message });
   }
 };
 
 module.exports = {
-  createUser,
-  getUsers,
-  deleteUser,
-  updateUser,
-  updateUsers,
+  createTask,
+  getTask,
+  deleteTask,
+  updateTask,
 };

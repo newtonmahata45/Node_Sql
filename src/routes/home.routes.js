@@ -2,14 +2,13 @@ const homeController = require("../controller/home.controller");
 
 const router = require("express").Router();
 
-router.post("/create-user", homeController.createUser);
+router.post("/create-task", homeController.createTask);
 
-router.get("/getUsers", homeController.getUsers);
+router.get("/get-all", homeController.getTask);
 
-router.delete("/deleteUser/:id", homeController.deleteUser);
+router.put("/update/:id", homeController.updateTask);
 
-router.put("/updateUser/:id", homeController.updateUser);
+router.delete("/delete/:id", homeController.deleteTask);
 
-router.post("/updateUsers/:name", homeController.updateUsers);
 
 module.exports = router;
